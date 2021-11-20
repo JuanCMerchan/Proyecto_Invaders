@@ -7,7 +7,7 @@
 #define BRAILLE1 '\u2840'
 #define BRAILLE2 '\u2880'
 #define BRAILLE3 '\u28c0'
-#define DISP_HEIGHT 144
+#define DISP_HEIGHT 192
 #define DISP_WIDTH 192
 
 class Display

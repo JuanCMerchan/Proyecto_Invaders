@@ -3,6 +3,10 @@
 Entity *Bullet::entities[MAX_ENTITIES];
 int Bullet::sizeEntities;
 
+Bullet::Bullet()
+{
+}
+
 void Bullet::act()
 {
     if (this->alive)
@@ -19,9 +23,10 @@ void Bullet::act()
                 moveDown();
             }
             checkCollisions();
-            if (this->health == 0)
+            this->timeAlive++;
+            if (this->health == 0 || this->timeAlive == MAX_TIME_LIVE)
             {
-                this->state == State::DYING;
+                this->state = State::DYING;
             }
             break;
 
@@ -37,9 +42,9 @@ void Bullet::act()
 
 void Bullet::checkCollisions()
 {
-    for (int i = 0; i < this->sizeEntities; i++)
+    for (int i = 0; i < MAX_ENTITIES; i++)
     {
-        if (this->entities[i]->getHealth() > 0 && isColliding(this->entities[i]))
+        if (this->entities[i]->getHealth() > 0 && isColliding(this->entities[i]) && this != this->entities[i])
         {
             if (this->friendly || (this->entities[i]->getFriendly()))
             {
@@ -56,6 +61,7 @@ void Bullet::initialize(int x, int y, const Sprites *sprites, Color color)
     Entity::initialize(x, y, sprites, color);
     this->health = 1;
     this->alive = false;
+    this->timeAlive = 0;
 }
 
 bool Bullet::isColliding(Entity *entity)
@@ -64,11 +70,21 @@ bool Bullet::isColliding(Entity *entity)
     {
         return false;
     }
-    if (this->y <= entity->getY() + entity->getSprite()->length || this->y + this->sprites->length >= entity->getY())
+    if (this->y >= entity->getY() + entity->getSprite()->length || this->y + this->sprites->length <= entity->getY())
     {
         return false;
     }
     return true;
+}
+
+void Bullet::moveDown()
+{
+    this->y += 2;
+}
+
+void Bullet::moveUp()
+{
+    this->y -= 2;
 }
 
 void Bullet::reset(int x, int y, bool friendly)
@@ -78,6 +94,10 @@ void Bullet::reset(int x, int y, bool friendly)
     this->friendly = friendly;
     this->health = 1;
     this->alive = true;
+    this->timeAlive = 0;
+    this->state = State::MOVING;
+    this->sprites = &BULLET_SPRITE;
+    this->spriteIndex = 0;
 }
 
 void Bullet::setEntities(Entity *entities[MAX_ENTITIES])

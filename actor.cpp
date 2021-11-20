@@ -7,7 +7,7 @@ Actor::Actor()
 
 void Actor::moveDown()
 {
-    this->y--;
+    this->y++;
 }
 
 void Actor::moveLeft()
@@ -17,7 +17,7 @@ void Actor::moveLeft()
 
 void Actor::moveUp()
 {
-    this->y++;
+    this->y--;
 }
 
 void Actor::moveRight()

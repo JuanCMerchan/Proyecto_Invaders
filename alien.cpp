@@ -1,5 +1,7 @@
 #include "alien.h"
 
+Bullet *Alien::bullets;
+
 Alien::Alien()
 {
     this->state = MOVING_RIGHT;
@@ -8,30 +10,41 @@ Alien::Alien()
 
 void Alien::act()
 {
-    switch (this->state)
+    if (this->alive)
     {
-    case State::MOVING_RIGHT:
-        if(this->movement == MAX_MOVEMENT)
+        switch (this->state)
         {
-            this->state = MOVING_LEFT;
-        }
-        moveRight();
-        this->movement++;
-        break;
+        case State::MOVING_RIGHT:
+            if (this->movement == MAX_MOVEMENT)
+            {
+                this->state = MOVING_LEFT;
+            }
+            moveRight();
+            this->movement++;
+            if (myRandom::getRandomNumber(CHANCE_SHOOT) == 1)
+            {
+                shoot();
+            }
+            break;
 
-    case State::MOVING_LEFT:
-        if(this->movement == 1)
-        {
-            this->state = MOVING_RIGHT;
+        case State::MOVING_LEFT:
+            if (this->movement == 1)
+            {
+                this->state = MOVING_RIGHT;
+            }
+            moveLeft();
+            this->movement--;
+            if (myRandom::getRandomNumber(CHANCE_SHOOT) == 1)
+            {
+                shoot();
+            }
+            break;
+        default:
+            break;
         }
-        moveLeft();
-        this->movement--;
-        break;
-    default:
-        break;
+        this->spriteIndex++;
+        this->spriteIndex %= this->sprites->numFrames;
     }
-    this->spriteIndex++;
-    this->spriteIndex %= this->sprites->numFrames;
 }
 
 void Alien::moveDown()
@@ -54,3 +67,23 @@ void Alien::moveRight()
     this->x += 2;
 }
 
+void Alien::setBullets(Bullet *bullets)
+{
+    Alien::bullets = bullets;
+}
+
+void Alien::shoot()
+{
+    int x;
+    int y;
+    x = this->getX() + (this->getSprite()->width / 2);
+    y = this->getY() + this->getSprite()->length;
+    for (int i = 0; i < MAX_BULLETS; i++)
+    {
+        if (!(Alien::bullets[i].getAlive()))
+        {
+            Alien::bullets[i].reset(x, y, false);
+            break;
+        }
+    }
+}

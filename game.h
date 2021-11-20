@@ -3,14 +3,16 @@
 #include "alien.h"
 #include "display.h"
 #include "timer.h"
-
-#define NUM_ALIENS 10
+#include "bullet.h"
+#include "bunker.h"
 
 class Game
 {
 private:
     Timer timer;
-    Alien aliens[NUM_ALIENS];
+    Alien aliens[MAX_ALIENS];
+    Bullet bullets[MAX_BULLETS];
+    Bunker bunkers[MAX_BUNKERS];
     Entity *allEntities[MAX_ENTITIES];
     Display display;
     unsigned char frame[DISP_HEIGHT][DISP_WIDTH];

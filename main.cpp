@@ -2,9 +2,7 @@
 
 int main()
 {
-    Timer timer;
-    unsigned long previous = timer.getMillis();
-    int counter = 0;
+    myRandom::setRandomSeed();
     Game game;
     game.start();
     

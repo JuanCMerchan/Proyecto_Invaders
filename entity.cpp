@@ -51,14 +51,27 @@ void Entity::initialize(int x, int y, const Sprites *sprites, Color color)
     this->y = y;
     this->sprites = sprites;
     this->color = color;
-    this->health = health;
     this->spriteIndex = 0;
+    this->alive = true;
 }
 
 void Entity::loseHealth()
 {
-    health--;
-    //Todo change sprite to explosion
+    this->health--;
+    this->spriteIndex++;
+    if(this->health == 0)
+    {
+        int newX;
+        int newY;
+        newX = this->x + this->sprites->width / 2;
+        newY = this->y + this->sprites->length / 2;
+        newX -= EXPLOTION_SPRITE.width / 2;
+        newY -= EXPLOTION_SPRITE.length / 2;
+        this->sprites = &EXPLOTION_SPRITE;
+        this->x = newX;
+        this->y = newY;
+        this->spriteIndex = 0;
+    }
 }
 
 void Entity::nextSprite()
