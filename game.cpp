@@ -5,6 +5,15 @@ Game::Game()
     cleanFrame();
 }
 
+/**************************************************************************
+ *  Funcion: cleanFrame()
+ *  Proposito: Limpiar la matriz frame que representa visualmente al juego
+ *             llenandola de 0's
+ *  Argumentos:
+ *      void
+ *  Retorno:
+ *      void
+ * ***********************************************************************/
 void Game::cleanFrame()
 {
     memset(frame, 0, sizeof(frame));
@@ -44,6 +53,15 @@ void Game::createFrame()
     cleanFrame();
 }
 
+/**************************************************************************
+ *  Funcion: initialize()
+ *  Proposito: Funcion que inicializa los atributos del juego incluidas
+ *             todas las entidades.
+ *  Argumentos:
+ *      void
+ *  Retorno:
+ *      void
+ * ***********************************************************************/
 void Game::initialize()
 {
     this->control.initialize();
@@ -82,26 +100,38 @@ void Game::initialize()
     }
     for (int i = 0; i < MAX_BULLETS; i++)
     {
-        this->bullets[i].initialize(0, 0, &BULLET_SPRITE, Color::GREEN);
+        this->bullets[i].initialize(0, 0, Color::GREEN);
         this->allEntities[MAX_ALIENS + i] = &this->bullets[i];
     }
     x = 42;
     y = DISP_HEIGHT - BUNKER_DISP_HEIGHT;
     for (int i = 0; i < MAX_BUNKERS; i++)
     {
-        this->bunkers[i].initialize(x, y, &BUNKER_SPRITE, Color::PINK);
+        this->bunkers[i].initialize(x, y, Color::PINK);
         x += 30;
         this->allEntities[MAX_ALIENS + MAX_BULLETS + i] = &this->bunkers[i];
     }
     x = (DISP_WIDTH / 2) - (PLAYER_SPRITE.width / 2);
     y = DISP_HEIGHT - PLAYER_SPRITE.length - PLAYER_DISP_HEIGHT;
-    player.initialize(x, y, &PLAYER_SPRITE, Color::YELLOW);
+    player.initialize(x, y, Color::YELLOW);
     this->allEntities[MAX_ENTITIES - 1] = &player;
     Player::setBullets(bullets);
     Alien::setBullets(bullets);
     Bullet::setEntities(allEntities);
 }
 
+/**************************************************************************
+ *  Funcion: start()
+ *  Proposito: Funcion que representa el juego en donde cada cierta cantidad
+ *             de milisegundos dependiendo del tipo de entidad invoca la 
+ *             funcion act() de dicha entidad. Si se llega a la condicion de
+ *             victoria o derrota se acaba el ciclo del juego y se imprime
+ *             la pantalla de game over.
+ *  Argumentos:
+ *      void
+ *  Retorno:
+ *      void
+ * ***********************************************************************/
 void Game::start()
 {
     int score = 0;

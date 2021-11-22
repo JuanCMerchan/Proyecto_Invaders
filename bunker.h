@@ -18,5 +18,5 @@ private:
 public:
     Bunker();
     void act();
-    void initialize(int x, int y, const Sprites *sprites, Color color);
+    void initialize(int x, int y, Color color);
 };

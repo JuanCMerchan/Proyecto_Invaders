@@ -15,7 +15,7 @@ private:
 public:
     Player();
     void act(bool moveRight, bool moveLeft, bool shoot);
-    void initialize(int x, int y, const Sprites *sprites, Color color);
+    void initialize(int x, int y, Color color);
     static void setBullets(Bullet *bullets);
     void shoot();
 };

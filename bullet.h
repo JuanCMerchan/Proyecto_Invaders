@@ -23,7 +23,7 @@ public:
     Bullet();
     void act();
     void checkCollisions();
-    void initialize(int x, int y, const Sprites *sprites, Color color);
+    void initialize(int x, int y, Color color);
     bool isColliding(Entity *entity);
     void moveDown();
     void moveUp();

@@ -30,6 +30,4 @@ public:
     int getSpriteIndex();
     void initialize(int x, int y, const Sprites *sprites, Color color);
     virtual void loseHealth();
-    void nextSprite();
-    void setFriendly(bool friendly);
 };
