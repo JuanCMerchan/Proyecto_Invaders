@@ -4,8 +4,6 @@ Bullet *Alien::bullets;
 
 Alien::Alien()
 {
-    this->state = MOVING_RIGHT;
-    this->movement = 0;
 }
 
 void Alien::act()
@@ -17,27 +15,47 @@ void Alien::act()
         case State::MOVING_RIGHT:
             if (this->movement == MAX_MOVEMENT)
             {
+                moveDown();
                 this->state = MOVING_LEFT;
             }
-            moveRight();
-            this->movement++;
+            else
+            {
+                moveRight();
+                this->movement++;
+            }
             if (myRandom::getRandomNumber(CHANCE_SHOOT) == 1)
             {
                 shoot();
+            }
+            if (this->health == 0)
+            {
+                this->state = State::DYING;
             }
             break;
 
         case State::MOVING_LEFT:
             if (this->movement == 1)
             {
+                moveDown();
                 this->state = MOVING_RIGHT;
             }
-            moveLeft();
-            this->movement--;
+            else
+            {
+                moveLeft();
+                this->movement--;
+            }
             if (myRandom::getRandomNumber(CHANCE_SHOOT) == 1)
             {
                 shoot();
             }
+            if (this->health == 0)
+            {
+                this->state = State::DYING;
+            }
+            break;
+
+        case State::DYING:
+            this->alive = false;
             break;
         default:
             break;
@@ -47,9 +65,23 @@ void Alien::act()
     }
 }
 
+void Alien::initialize(int x, int y, const Sprites *sprites, Color color, int score)
+{
+    Entity::initialize(x, y, sprites, color);
+    this->health = 1;
+    this->movement = 0;
+    this->state = State::MOVING_RIGHT;
+    this->score = score;
+}
+
+int Alien::getScore()
+{
+    return this->score;
+}
+
 void Alien::moveDown()
 {
-    this->y += 2;
+    this->y += 8;
 }
 
 void Alien::moveLeft()

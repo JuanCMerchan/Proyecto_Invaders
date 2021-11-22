@@ -51,6 +51,17 @@ void Display::clearScreen()
     printf("\033[H");
 }
 
+void Display::gameOver()
+{
+    clearScreen();
+    printf("\n\n\n\n");
+    printf("            ___    __    __  __  ____    _____  _  _  ____  ____ \n");
+    printf("           / __)  /__\\  (  \\/  )( ___)  (  _  )( \\/ )( ___)(  _ \\\n");
+    printf("          ( (_-. /(__)\\  )    (  )__)    )(_)(  \\  /  )__)  )   /\n");
+    printf("           \\___/(__)(__)(_/\\/\\_)(____)  (_____)  \\/  (____)(_)\\_)\n");
+    printf("\n\n          FINAL SCORE: %d\n\n\n\n\n\n", this->score);
+}
+
 void Display::print()
 {
     unsigned char stringByte[8];
@@ -93,6 +104,7 @@ void Display::print()
     {
         printf("-");
     }
+    printf("\n Score: %d\n Lives: %d\n", this->score, this->lives);
     fflush(stdout);
     cleanFrame();
 }
@@ -106,6 +118,16 @@ void Display::setFrame(unsigned char frame[DISP_HEIGHT][DISP_WIDTH])
             this->frame[i][j] = frame[i][j];
         }
     }
+}
+
+void Display::setLives(int lives)
+{
+    this->lives = lives;
+}
+
+void Display::setScore(int score)
+{
+    this->score = score;
 }
 
 unsigned char Display::stringByteToChar(unsigned char stringByte[8])

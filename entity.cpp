@@ -59,6 +59,7 @@ void Entity::loseHealth()
 {
     this->health--;
     this->spriteIndex++;
+    this->spriteIndex %= this->sprites->numFrames;
     if(this->health == 0)
     {
         int newX;

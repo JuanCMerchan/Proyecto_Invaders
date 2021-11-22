@@ -1,12 +1,11 @@
 #pragma once
 
 #include "entity.h"
-
-enum Action{M_UP, M_DOWN, M_LEFT, M_RIGHT, SHOOT};
+#include <stdio.h>
 
 class Actor: public Entity
 {
-protected:
+private:
 
 public:
     Actor();

@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_ENTITIES 48
+#define MAX_ENTITIES 57
 
 #include "sprites.h"
 
@@ -24,7 +24,6 @@ public:
     Color getColor();
     bool getFriendly();
     int getHealth();
-    int getScore();
     int getX();
     int getY();
     const Sprites *getSprite();

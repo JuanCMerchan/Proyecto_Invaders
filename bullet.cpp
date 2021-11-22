@@ -44,12 +44,12 @@ void Bullet::checkCollisions()
 {
     for (int i = 0; i < MAX_ENTITIES; i++)
     {
-        if (this->entities[i]->getHealth() > 0 && isColliding(this->entities[i]) && this != this->entities[i])
+        if (Bullet::entities[i]->getHealth() > 0 && isColliding(Bullet::entities[i]) && this != Bullet::entities[i])
         {
-            if (this->friendly || (this->entities[i]->getFriendly()))
+            if (this->friendly || (Bullet::entities[i]->getFriendly()))
             {
-                this->entities[i]->loseHealth();
-                loseHealth();
+                Bullet::entities[i]->loseHealth();
+                this->loseHealth();
                 break;
             }
         }

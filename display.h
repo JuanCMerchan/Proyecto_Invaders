@@ -13,6 +13,8 @@
 class Display
 {
 private:
+    int score;
+    int lives;
     unsigned char frame[DISP_HEIGHT][DISP_WIDTH];
     void cleanFrame();
     static void clearScreen();
@@ -21,7 +23,10 @@ private:
 public:
     Display();
     void byteToBraille(char destination[4], unsigned char byte);
+    void gameOver();
     void print();
     void setFrame(unsigned char frame[DISP_HEIGHT][DISP_WIDTH]);
+    void setScore(int score);
+    void setLives(int lives);
     unsigned char stringByteToChar(unsigned char stringByte[8]);
 };
