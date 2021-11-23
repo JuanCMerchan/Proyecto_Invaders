@@ -3,7 +3,7 @@
 #include "actor.h"
 
 #define MAX_BULLETS 20
-#define MAX_TIME_LIVE 150
+#define MAX_TIME_LIVE 200
 
 class Bullet : public Actor
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_ENTITIES 57
+#define MAX_ENTITIES 58
 
 #include "sprites.h"
 

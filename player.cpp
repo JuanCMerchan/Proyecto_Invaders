@@ -27,20 +27,24 @@ void Player::act(bool moveRight, bool moveLeft, bool shoot)
         case State::SHOOTING:
             if(moveRight)
             {
+                //Si la directris de moverse a la derecha es verdadera el jugador se mueve a la derecha
                 this->moveRight();
             }
             if(moveLeft)
             {
+                //Si la directris de moverse a la izquierda es verdadera el jugador se mueve a la izquierda
                 this->moveLeft();
             }
             if(shoot)
             {
+                //Si la directris de disparar es verdadera el jugador dispara, se actualiza previousShot y se pasa al estado de espera
                 this->shoot();
                 this->previousShot = this->timer.getMillis();
                 this->state = State::WAITING;
             }
             if(this->health == 0)
             {
+                //Si la vida del jugador llega a 0 pasa al estado de morir
                 this->state = State::DYING;
             }
             break;
@@ -48,23 +52,28 @@ void Player::act(bool moveRight, bool moveLeft, bool shoot)
         case State::WAITING:
             if(moveRight)
             {
+                //Si la directris de moverse a la derecha es verdadera el jugador se mueve a la derecha
                 this->moveRight();
             }
             if(moveLeft)
             {
+                //Si la directris de moverse a la izquierda es verdadera el jugador se mueve a la izquierda
                 this->moveLeft();
             }
-            if(this->timer.getMillis() - previousShot > 1000)
+            if(this->timer.getMillis() - previousShot > SHOOT_CD)
             {
+                //Si se cumplio al tiempo de espera el jugador vuelve al estado de disparar
                 this->state = State::SHOOTING;
             }
             if(this->health == 0)
             {
+                //Si la vida del jugador llega a 0 pasa al estado de morir
                 this->state = State::DYING;
             }
             break;
 
         case State::DYING:
+            //Se pasa alive a false
             this->alive = false;
             break;
 

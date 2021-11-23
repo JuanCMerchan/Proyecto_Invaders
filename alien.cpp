@@ -24,20 +24,24 @@ void Alien::act()
         case State::MOVING_RIGHT:
             if (this->movement == MAX_MOVEMENT)
             {
+                //Si el alien llega al maximo de su movimiento se mueve una vez hacia abajo y cambia a moverse en la otra direccion
                 moveDown();
                 this->state = MOVING_LEFT;
             }
             else
             {
+                //El alien se mueve e incrementa el valor de su movimiento
                 moveRight();
                 this->movement++;
             }
             if (myRandom::getRandomNumber(CHANCE_SHOOT) == 1)
             {
+                //Se genera un numero al azar y si este da uno el alien dispara
                 shoot();
             }
             if (this->health == 0)
             {
+                //Si la vida del alien esta en 0 pasa al estado de morir
                 this->state = State::DYING;
             }
             break;
@@ -45,30 +49,36 @@ void Alien::act()
         case State::MOVING_LEFT:
             if (this->movement == 1)
             {
+                //Si el alien llega al maximo de su movimiento se mueve una vez hacia abajo y cambia a moverse en la otra direccion
                 moveDown();
                 this->state = MOVING_RIGHT;
             }
             else
             {
+                //El alien se mueve e incrementa el valor de su movimiento
                 moveLeft();
                 this->movement--;
             }
             if (myRandom::getRandomNumber(CHANCE_SHOOT) == 1)
             {
+                //Se genera un numero al azar y si este da uno el alien dispara
                 shoot();
             }
             if (this->health == 0)
             {
+                //Si la vida del alien esta en 0 pasa al estado de morir
                 this->state = State::DYING;
             }
             break;
 
         case State::DYING:
+            //Se pasa alive a falso
             this->alive = false;
             break;
         default:
             break;
         }
+        //Cada ciclo el sprite del alien pasa al siguiente
         this->spriteIndex++;
         this->spriteIndex %= this->sprites->numFrames;
     }
@@ -123,7 +133,7 @@ void Alien::moveDown()
 }
 
 /**************************************************************************
- *  Funcion: moveDown()
+ *  Funcion: moveLeft()
  *  Proposito: Reducir la posicion horizontal del alien una cantidad de
  *              unidades predeterminada
  *  Argumentos: 
@@ -137,7 +147,7 @@ void Alien::moveLeft()
 }
 
 /**************************************************************************
- *  Funcion: moveDown()
+ *  Funcion: moveUp()
  *  Proposito: Reducir la posicion vertical del alien una cantidad de
  *              unidades predeterminada
  *  Argumentos: 
@@ -151,7 +161,7 @@ void Alien::moveUp()
 }
 
 /**************************************************************************
- *  Funcion: moveDown()
+ *  Funcion: moveRight()
  *  Proposito: Incrementar la posicion horizontal del alien una cantidad de
  *              unidades predeterminada
  *  Argumentos: 

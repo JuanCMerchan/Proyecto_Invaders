@@ -25,21 +25,27 @@ void Bullet::act()
         case State::MOVING:
             if (friendly)
             {
+                //Si la bala es amiga se mueve hacia arriba
                 moveUp();
             }
             else
             {
+                //Si es enemiga se mueve hacia abajo
                 moveDown();
             }
+            //Se revisa si existen colisiones y se incrementa el tiempo que ha estado viva la bala
             checkCollisions();
             this->timeAlive++;
+
             if (this->health == 0 || this->timeAlive == MAX_TIME_LIVE)
             {
+                //Si la vida de la bala es cero o ha superado su maximo tiempo de vida esta pasa al estado de morir
                 this->state = State::DYING;
             }
             break;
 
         case State::DYING:
+            //Se pasa alive a false
             this->alive = false;
             break;
 
@@ -130,7 +136,7 @@ bool Bullet::isColliding(Entity *entity)
  * ***********************************************************************/
 void Bullet::moveDown()
 {
-    this->y += 2;
+    this->y += 1;
 }
 
 /**************************************************************************
@@ -144,7 +150,7 @@ void Bullet::moveDown()
  * ***********************************************************************/
 void Bullet::moveUp()
 {
-    this->y -= 2;
+    this->y -= 1;
 }
 
 /**************************************************************************

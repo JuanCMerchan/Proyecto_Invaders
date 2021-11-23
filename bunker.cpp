@@ -23,10 +23,12 @@ void Bunker::act()
         case State::EXISTING:
             if(this->health == 0)
             {
+                //Si la vida del bunker llega a 0 se pasa al estado de morir
                 this->state = State::DYING;
             }
             break;
         case State::DYING:
+            //Se pasa alive a false
             this->alive = false;
             break;
         default:

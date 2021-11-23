@@ -4,6 +4,8 @@
 #include "bullet.h"
 #include "timer.h"
 
+#define SHOOT_CD 750
+
 class Player : public Actor
 {
     enum State {SHOOTING, WAITING, DYING};
