@@ -41,9 +41,9 @@ void Game::createFrame()
             //Si la entidad no esta viva esta se salta y no se pinta
             continue;
         }
-        if (this->allEntities[i]->getX() >= 0 && this->allEntities[i]->getX() + this->allEntities[i]->getSprite()->width <= DISP_WIDTH)
+        if (this->allEntities[i]->getX() >= 0 && this->allEntities[i]->getX() + this->allEntities[i]->getSprite()->width < DISP_WIDTH)
         {
-            if (this->allEntities[i]->getY() >= 0 && this->allEntities[i]->getY() + this->allEntities[i]->getSprite()->length <= DISP_HEIGHT)
+            if (this->allEntities[i]->getY() >= 0 && this->allEntities[i]->getY() + this->allEntities[i]->getSprite()->length < DISP_HEIGHT)
             {
                 //Se recorren las entidades y se pintan solo si existen dentro de los limites de la pantalla
                 entity = this->allEntities[i];
